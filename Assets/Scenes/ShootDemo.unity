@@ -672,6 +672,8 @@ Transform:
 --- !u!1 &1453314571
 GameObject:
   m_ObjectHideFlags: 0
+--- !u!1 &1453314571 stripped
+GameObject:
   m_CorrespondingSourceObject: {fileID: 6613787547263809776, guid: f642d496f8ee7cb42bdb367be8067423,
     type: 3}
   m_PrefabInstance: {fileID: 8236953480040279453}
