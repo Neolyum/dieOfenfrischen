@@ -42,6 +42,13 @@ public class TurretManager : MonoBehaviour {
         source.clip = kathode;
         source.Play();
         StartCoroutine("Shoot");
+        StartCoroutine("StopShootAfter4s");
+    }
+    
+    private IEnumerator StopShootAfter4s()
+    {
+        yield return new WaitForSeconds(4.222f);
+        StopShooting();
     }
 
     private void StopShooting()
@@ -54,6 +61,7 @@ public class TurretManager : MonoBehaviour {
             t.StopShoot();
         }
         StopCoroutine("Shoot");
+        StopCoroutine("StopShootAfter4s");
     }
 
 	private void Aim() {
