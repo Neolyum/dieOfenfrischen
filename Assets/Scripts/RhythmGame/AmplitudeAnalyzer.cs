@@ -78,9 +78,9 @@ public class AmplitudeAnalyzer : MonoBehaviour
             sum += clipLoudness;
             average = sum / counter;
             
-            Debug.Log("Higherst: " + highest);
-            Debug.Log("Lowest: " + lowest);
-            Debug.Log("Average: " + average);
+//            Debug.Log("Higherst: " + highest);
+//            Debug.Log("Lowest: " + lowest);
+//            Debug.Log("Average: " + average);
             
             // Debug.Log("Average: " + average);
 

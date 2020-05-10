@@ -14,6 +14,7 @@ public class TurretManager : MonoBehaviour {
 	private Vector2 aim;
 
 
+	public BeatPanel bp;
 	public float weaponDistance = 100f;
 	public Shot weapon;
 	public Transform turretParent;
@@ -30,8 +31,11 @@ public class TurretManager : MonoBehaviour {
 		fc = new FlightControls();
 		fc.Turret.Aim.performed += ctx => aim = ctx.ReadValue<Vector2>();
 		fc.Turret.Shoot.started += _ => Shoot();
+		fc.Turret.Beat.started += _ => bp.OnBeatHitDown();
+		fc.Turret.Beat.canceled+= _ => bp.OnBeatHitUp();
 //		fc.Turret.Aim.canceled += ctx => aim = Vector2.zero;
 	}
+
 
 	private void Aim() {
 		float x = aim.x * sensitivity * Time.deltaTime;
