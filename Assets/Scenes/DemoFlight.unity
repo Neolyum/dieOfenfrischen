@@ -790,6 +790,16 @@ PrefabInstance:
       propertyPath: m_TargetDisplay
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7714928428810212916, guid: d2ac7627667e7734e81f315453c79989,
+        type: 3}
+      propertyPath: near clip plane
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7714928428810212916, guid: d2ac7627667e7734e81f315453c79989,
+        type: 3}
+      propertyPath: far clip plane
+      value: 10000
+      objectReference: {fileID: 0}
     - target: {fileID: 7714928428810212917, guid: d2ac7627667e7734e81f315453c79989,
         type: 3}
       propertyPath: m_LocalPosition.z
