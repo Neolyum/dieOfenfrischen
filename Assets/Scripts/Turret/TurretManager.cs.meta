@@ -3,7 +3,12 @@ guid: 9662d9c08eae23e4d8694f58dbb18345
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - cam: {instanceID: 0}
+  - kathode: {fileID: 8300000, guid: 7cb01f3fb781a3140be6b9d8893db6d9, type: 3}
+  - lookAt: {instanceID: 0}
+  - weapon: {instanceID: 0}
+  - turretParent: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

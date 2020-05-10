@@ -28,7 +28,7 @@ public class Leviathan : MonoBehaviour, IDamageable
 
     void FixedUpdate()
     {
-        if (hp > 0) hp -= 15;
+        //if (hp > 0) hp -= 15;
         if (hp <= 0 && !dead)
         {
             die();
