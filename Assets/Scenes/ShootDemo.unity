@@ -153,13 +153,12 @@ MonoBehaviour:
   cam: {fileID: 1273896530}
   kathode: {fileID: 8300000, guid: 7cb01f3fb781a3140be6b9d8893db6d9, type: 3}
   lookAt: {fileID: 358592848}
-  sensitivity: 100
   shotEnergy: 100
   energyUI: {fileID: 0}
   bp: {fileID: 627765062}
   weaponDistance: 100
-  weapon: {fileID: 1453314573}
   turretParent: {fileID: 1339161409}
+  aimDir: {x: 0, y: 0, z: 0}
 --- !u!4 &40541958
 Transform:
   m_ObjectHideFlags: 0
@@ -501,7 +500,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 27daf6d66eb4f0845abeb3d40797b292, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 971ca1fe6905cfc44bfdd93011a32948, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -1209,7 +1208,6 @@ MonoBehaviour:
   m_Cameras: []
   m_RendererIndex: -1
   m_VolumeLayerMask:
-    serializedVersion: 2
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_RenderPostProcessing: 0
