@@ -148,23 +148,20 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Beat",
+                    "type": "Button",
+                    "id": "12fa7352-d511-4351-a2da-34c2b8265980",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
                 {
                     "name": "",
-                    "id": "1653dc8f-760e-46bd-9495-8e4e44190795",
-                    "path": "<Gamepad>/rightTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad;KM",
-                    "action": "Shoot",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "5ecf6c74-158c-432f-88c4-1180fca6ec8e",
+                    "id": "caee9054-e85d-4d71-9700-b74e7db771e7",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
@@ -175,23 +172,34 @@
                 },
                 {
                     "name": "",
-                    "id": "0d3d4130-844d-428e-8e79-f51e72abf9ec",
-                    "path": "<Gamepad>/leftStick",
+                    "id": "734569c1-d094-4a99-a8f1-757049954217",
+                    "path": "<Mouse>/delta",
                     "interactions": "",
-                    "processors": "StickDeadzone",
-                    "groups": "Gamepad",
+                    "processors": "AxisDeadzone",
+                    "groups": "KM",
                     "action": "Aim",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "b686c511-caf2-4740-b50b-e13748780da1",
-                    "path": "<Mouse>/delta",
+                    "id": "83a11500-cbcf-4da8-aec2-cc4883424739",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Beat",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c465e3be-0c0e-419d-aea2-eb9aec771bfe",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "KM",
-                    "action": "Aim",
+                    "action": "Beat",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

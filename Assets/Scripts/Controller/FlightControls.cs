@@ -161,23 +161,20 @@ public class @FlightControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Beat"",
+                    ""type"": ""Button"",
+                    ""id"": ""12fa7352-d511-4351-a2da-34c2b8265980"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""1653dc8f-760e-46bd-9495-8e4e44190795"",
-                    ""path"": ""<Gamepad>/rightTrigger"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad;KM"",
-                    ""action"": ""Shoot"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""5ecf6c74-158c-432f-88c4-1180fca6ec8e"",
+                    ""id"": ""caee9054-e85d-4d71-9700-b74e7db771e7"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -188,23 +185,34 @@ public class @FlightControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""0d3d4130-844d-428e-8e79-f51e72abf9ec"",
-                    ""path"": ""<Gamepad>/leftStick"",
+                    ""id"": ""734569c1-d094-4a99-a8f1-757049954217"",
+                    ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
-                    ""processors"": ""StickDeadzone"",
-                    ""groups"": ""Gamepad"",
+                    ""processors"": ""AxisDeadzone"",
+                    ""groups"": ""KM"",
                     ""action"": ""Aim"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""b686c511-caf2-4740-b50b-e13748780da1"",
-                    ""path"": ""<Mouse>/delta"",
+                    ""id"": ""83a11500-cbcf-4da8-aec2-cc4883424739"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Beat"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c465e3be-0c0e-419d-aea2-eb9aec771bfe"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""KM"",
-                    ""action"": ""Aim"",
+                    ""action"": ""Beat"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -256,6 +264,7 @@ public class @FlightControls : IInputActionCollection, IDisposable
         m_Turret = asset.FindActionMap("Turret", throwIfNotFound: true);
         m_Turret_Aim = m_Turret.FindAction("Aim", throwIfNotFound: true);
         m_Turret_Shoot = m_Turret.FindAction("Shoot", throwIfNotFound: true);
+        m_Turret_Beat = m_Turret.FindAction("Beat", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -364,12 +373,14 @@ public class @FlightControls : IInputActionCollection, IDisposable
     private ITurretActions m_TurretActionsCallbackInterface;
     private readonly InputAction m_Turret_Aim;
     private readonly InputAction m_Turret_Shoot;
+    private readonly InputAction m_Turret_Beat;
     public struct TurretActions
     {
         private @FlightControls m_Wrapper;
         public TurretActions(@FlightControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Aim => m_Wrapper.m_Turret_Aim;
         public InputAction @Shoot => m_Wrapper.m_Turret_Shoot;
+        public InputAction @Beat => m_Wrapper.m_Turret_Beat;
         public InputActionMap Get() { return m_Wrapper.m_Turret; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -385,6 +396,9 @@ public class @FlightControls : IInputActionCollection, IDisposable
                 @Shoot.started -= m_Wrapper.m_TurretActionsCallbackInterface.OnShoot;
                 @Shoot.performed -= m_Wrapper.m_TurretActionsCallbackInterface.OnShoot;
                 @Shoot.canceled -= m_Wrapper.m_TurretActionsCallbackInterface.OnShoot;
+                @Beat.started -= m_Wrapper.m_TurretActionsCallbackInterface.OnBeat;
+                @Beat.performed -= m_Wrapper.m_TurretActionsCallbackInterface.OnBeat;
+                @Beat.canceled -= m_Wrapper.m_TurretActionsCallbackInterface.OnBeat;
             }
             m_Wrapper.m_TurretActionsCallbackInterface = instance;
             if (instance != null)
@@ -395,6 +409,9 @@ public class @FlightControls : IInputActionCollection, IDisposable
                 @Shoot.started += instance.OnShoot;
                 @Shoot.performed += instance.OnShoot;
                 @Shoot.canceled += instance.OnShoot;
+                @Beat.started += instance.OnBeat;
+                @Beat.performed += instance.OnBeat;
+                @Beat.canceled += instance.OnBeat;
             }
         }
     }
@@ -428,5 +445,6 @@ public class @FlightControls : IInputActionCollection, IDisposable
     {
         void OnAim(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
+        void OnBeat(InputAction.CallbackContext context);
     }
 }
