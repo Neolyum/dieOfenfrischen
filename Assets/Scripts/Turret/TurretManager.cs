@@ -12,7 +12,7 @@ public class TurretManager : MonoBehaviour {
 	public Transform lookAt;
 	public float sensitivity = 100f;
 	private Vector2 aim;
-
+    private bool running = true;
 
 	public float weaponDistance = 100f;
 	public Shot weapon;
@@ -29,9 +29,27 @@ public class TurretManager : MonoBehaviour {
 
 		fc = new FlightControls();
 		fc.Turret.Aim.performed += ctx => aim = ctx.ReadValue<Vector2>();
-		fc.Turret.Shoot.started += _ => Shoot();
+        fc.Turret.Shoot.started += _ => StartShooting();
+        fc.Turret.Shoot.canceled += _ => StopShooting();
 //		fc.Turret.Aim.canceled += ctx => aim = Vector2.zero;
 	}
+    private void StartShooting()
+    {
+        Debug.Log("Start shootiung");
+        running = true;
+        StartCoroutine("Shoot");
+    }
+
+    private void StopShooting()
+    {
+        Debug.Log("Stopping shoot");
+        running = false;
+        foreach (Turret t in turrets)
+        {
+            t.StopShoot();
+        }
+        StopCoroutine("Shoot");
+    }
 
 	private void Aim() {
 		float x = aim.x * sensitivity * Time.deltaTime;
@@ -43,13 +61,18 @@ public class TurretManager : MonoBehaviour {
 	}
 
 
-	private void Shoot() {
-		Vector3 dir = lookAt.position - transform.position;
+	private IEnumerator Shoot() {
+        while (running)
+        {
+            Vector3 dir = lookAt.position - transform.position;
 
-		foreach (Turret t in turrets) {
-			Debug.DrawLine(lookAt.position, t.transform.position, Color.yellow);
-			t.Shoot(dir.normalized, weaponDistance);
-		}
+            foreach (Turret t in turrets)
+            {
+                Debug.DrawLine(lookAt.position, t.transform.position, Color.yellow);
+                t.Shoot(dir.normalized, weaponDistance);
+            }
+            yield return new WaitForEndOfFrame();
+        }
 	}
 
 	private void OnEnable() {
