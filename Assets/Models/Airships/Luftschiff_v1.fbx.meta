@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4543d22b3ecafea49a4a3b013287e918
+guid: 80502469ac51aea44b7174033d567589
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
@@ -7,18 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Alu
-    second: {fileID: 2100000, guid: 622644097229bc14bb05ef951d27c79a, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
       name: Fenster
     second: {fileID: 2100000, guid: da5ddc3439f665a489e619894d4ec608, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Holz
-    second: {fileID: 2100000, guid: 99593c18c27948247911bbb95a82132d, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -32,13 +22,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Stahl
-    second: {fileID: 2100000, guid: 7a67783932d6d5f4b913028f902a441e, type: 2}
+      name: No Name
+    second: {fileID: 2100000, guid: 5b7c3cf9add56ed4c89d6b998d46237b, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: impeller.main.001
-    second: {fileID: 2100000, guid: 24581ed703364c548bffcc21213e6001, type: 2}
+      name: Stahl
+    second: {fileID: 2100000, guid: 7a67783932d6d5f4b913028f902a441e, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -69,7 +59,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.08
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -115,7 +105,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.0008
+    globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
