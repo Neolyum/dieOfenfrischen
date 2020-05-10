@@ -141,6 +141,52 @@ public class @FlightControls : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Turret"",
+            ""id"": ""f7dfbde8-17ec-4429-9d77-23e1b7c4627f"",
+            ""actions"": [
+                {
+                    ""name"": ""Aim"",
+                    ""type"": ""Value"",
+                    ""id"": ""0e809dc2-c174-4ab8-ac3d-8a97dab636b9"",
+                    ""expectedControlType"": ""Stick"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Shoot"",
+                    ""type"": ""Button"",
+                    ""id"": ""83f70c7b-a650-4750-a6a4-8d2f2902458a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""1653dc8f-760e-46bd-9495-8e4e44190795"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad;KM"",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0d3d4130-844d-428e-8e79-f51e72abf9ec"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": ""StickDeadzone"",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Aim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -184,6 +230,10 @@ public class @FlightControls : IInputActionCollection, IDisposable
         m_Flight_Roll = m_Flight.FindAction("Roll", throwIfNotFound: true);
         m_Flight_Speed = m_Flight.FindAction("Speed", throwIfNotFound: true);
         m_Flight_Camera = m_Flight.FindAction("Camera", throwIfNotFound: true);
+        // Turret
+        m_Turret = asset.FindActionMap("Turret", throwIfNotFound: true);
+        m_Turret_Aim = m_Turret.FindAction("Aim", throwIfNotFound: true);
+        m_Turret_Shoot = m_Turret.FindAction("Shoot", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -286,6 +336,47 @@ public class @FlightControls : IInputActionCollection, IDisposable
         }
     }
     public FlightActions @Flight => new FlightActions(this);
+
+    // Turret
+    private readonly InputActionMap m_Turret;
+    private ITurretActions m_TurretActionsCallbackInterface;
+    private readonly InputAction m_Turret_Aim;
+    private readonly InputAction m_Turret_Shoot;
+    public struct TurretActions
+    {
+        private @FlightControls m_Wrapper;
+        public TurretActions(@FlightControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Aim => m_Wrapper.m_Turret_Aim;
+        public InputAction @Shoot => m_Wrapper.m_Turret_Shoot;
+        public InputActionMap Get() { return m_Wrapper.m_Turret; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(TurretActions set) { return set.Get(); }
+        public void SetCallbacks(ITurretActions instance)
+        {
+            if (m_Wrapper.m_TurretActionsCallbackInterface != null)
+            {
+                @Aim.started -= m_Wrapper.m_TurretActionsCallbackInterface.OnAim;
+                @Aim.performed -= m_Wrapper.m_TurretActionsCallbackInterface.OnAim;
+                @Aim.canceled -= m_Wrapper.m_TurretActionsCallbackInterface.OnAim;
+                @Shoot.started -= m_Wrapper.m_TurretActionsCallbackInterface.OnShoot;
+                @Shoot.performed -= m_Wrapper.m_TurretActionsCallbackInterface.OnShoot;
+                @Shoot.canceled -= m_Wrapper.m_TurretActionsCallbackInterface.OnShoot;
+            }
+            m_Wrapper.m_TurretActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Aim.started += instance.OnAim;
+                @Aim.performed += instance.OnAim;
+                @Aim.canceled += instance.OnAim;
+                @Shoot.started += instance.OnShoot;
+                @Shoot.performed += instance.OnShoot;
+                @Shoot.canceled += instance.OnShoot;
+            }
+        }
+    }
+    public TurretActions @Turret => new TurretActions(this);
     private int m_KMSchemeIndex = -1;
     public InputControlScheme KMScheme
     {
@@ -310,5 +401,10 @@ public class @FlightControls : IInputActionCollection, IDisposable
         void OnRoll(InputAction.CallbackContext context);
         void OnSpeed(InputAction.CallbackContext context);
         void OnCamera(InputAction.CallbackContext context);
+    }
+    public interface ITurretActions
+    {
+        void OnAim(InputAction.CallbackContext context);
+        void OnShoot(InputAction.CallbackContext context);
     }
 }
