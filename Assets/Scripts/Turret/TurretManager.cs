@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class TurretManager : MonoBehaviour {
 	private FlightControls fc;
-
+    private AudioSource source;
 	[SerializeField] private Camera cam;
+    [SerializeField] private AudioClip kathode;
 
 
 	public Transform lookAt;
@@ -20,6 +21,7 @@ public class TurretManager : MonoBehaviour {
 	private List<Turret> turrets;
 
 	void Awake() {
+        source = gameObject.AddComponent<AudioSource>();
 		turrets = new List<Turret>();
 		foreach (Transform child in turretParent) {
 			Turret t = child.gameObject.AddComponent(typeof(Turret)) as Turret;
@@ -37,11 +39,14 @@ public class TurretManager : MonoBehaviour {
     {
         Debug.Log("Start shootiung");
         running = true;
+        source.clip = kathode;
+        source.Play();
         StartCoroutine("Shoot");
     }
 
     private void StopShooting()
     {
+        source.Stop();
         Debug.Log("Stopping shoot");
         running = false;
         foreach (Turret t in turrets)
