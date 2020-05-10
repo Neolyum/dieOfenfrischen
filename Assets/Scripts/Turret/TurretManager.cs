@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using DefaultNamespace;
 using UnityEngine;
 
@@ -14,8 +15,11 @@ public class TurretManager : MonoBehaviour {
 	public Transform lookAt;
 	public float sensitivity = 100f;
 	private Vector2 aim;
-	private bool running = true;
 
+	public int shotEnergy;
+	public EnergyUI energyUI;
+
+	public BeatPanel bp;
 	public float weaponDistance = 100f;
 	public Transform turretParent;
 	private List<Turret> turrets;
@@ -24,6 +28,8 @@ public class TurretManager : MonoBehaviour {
 
 
 	void Awake() {
+		energyUI = GameObject.Find("EnergyUI").GetComponent<EnergyUI>();
+		
 		source = gameObject.AddComponent<AudioSource>();
 		LineRenderer line = GetComponent<LineRenderer>();
 		turrets = new List<Turret>();
@@ -39,10 +45,14 @@ public class TurretManager : MonoBehaviour {
 
 		fc = new FlightControls();
 		fc.Turret.Aim.performed += ctx => aim = ctx.ReadValue<Vector2>();
+		fc.Turret.Shoot.started += _ => Shoot();
+		fc.Turret.Beat.started += _ => bp.OnBeatHitDown();
+		fc.Turret.Beat.canceled+= _ => bp.OnBeatHitUp();
 		fc.Turret.Shoot.started += _ => ToggleShooting(true);
 		fc.Turret.Shoot.canceled += _ => ToggleShooting(false);
 //		fc.Turret.Aim.canceled += ctx => aim = Vector2.zero;
 	}
+
 
 
 	void ToggleShooting(bool value) {
@@ -73,6 +83,24 @@ public class TurretManager : MonoBehaviour {
 		aimDir = lookAt.position - transform.position;
 	}
 
+
+	private void Shoot() {
+		if (energyUI.currentEnergy >= shotEnergy) {
+			Vector3 dir = lookAt.position - transform.position;
+
+			foreach (Turret t in turrets) {
+				Debug.DrawLine(lookAt.position, t.transform.position, Color.yellow);
+				t.Shoot(dir.normalized, weaponDistance);
+			}
+
+			if(energyUI.currentEnergy - shotEnergy > 0) {
+				energyUI.currentEnergy -= shotEnergy;
+			}
+			else {
+				energyUI.currentEnergy = 0;
+			}
+		}
+	}
 
 	private void OnEnable() {
 		fc.Enable();

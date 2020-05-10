@@ -38,6 +38,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: BeatMarkers
+    uniqueID: 3601643725
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: BG
+    uniqueID: 3210758099
     locked: 0
