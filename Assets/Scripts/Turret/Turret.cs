@@ -20,6 +20,7 @@ public class Turret : MonoBehaviour {
             UpdateLaser(direction);
         }
 	}
+    
     public void StopShoot()
     {
         shot = false;
