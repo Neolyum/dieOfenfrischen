@@ -47,21 +47,27 @@ namespace ArcadeJets {
 		public const float ThrottleMax = 3f;
 		public const float ThrottleSpeed = 2f;
 
+		public Transform lookAt;
+		public float sensitivity = 100f;
+		private Vector2 aim;
+
 		private void Awake() {
 			fc = new FlightControls();
 			fc.Flight.PitchYaw.performed += ctx => PitchYawSet(ctx.ReadValue<Vector2>());
 			fc.Flight.Roll.performed += ctx => RollSet(ctx.ReadValue<float>());
 			fc.Flight.Speed.performed += ctx => Turbo(ctx.ReadValue<float>());
-			fc.Flight.Camera.performed += ctx => RotateCamera(ctx.ReadValue<Vector2>());
-			fc.Flight.Camera.started += ctx => RotateCamera(ctx.ReadValue<Vector2>());
-			fc.Flight.Camera.canceled += ctx => RotateCamera(ctx.ReadValue<Vector2>());
+
+			fc.Flight.Camera.performed += ctx => aim = ctx.ReadValue<Vector2>();
 		}
 
 
-		void RotateCamera(Vector2 aimVec) {
-			Debug.Log(aimVec);
-			cam.transform.Translate(Time.deltaTime * speed * aimVec);
-			cam.transform.LookAt(transform);
+		private void Aim() {
+			float x = aim.x * sensitivity * Time.deltaTime;
+			float y = Mathf.Clamp(-aim.y * sensitivity * Time.deltaTime, -90f, 90f);
+
+			transform.RotateAround(transform.position, transform.up, x);
+			transform.RotateAround(transform.position, transform.right, y);
+			cam.transform.LookAt(lookAt);
 		}
 
 		private void OnEnable() {
@@ -84,6 +90,11 @@ namespace ArcadeJets {
 		void Turbo(float t) {
 			throttle = Mathf.MoveTowards(throttle, t > 1 ? ThrottleMax : t == 0 ? ThrottleNeutral : ThrottleMin,
 				ThrottleSpeed * Time.deltaTime);
+		}
+
+
+		void Update() {
+			Aim();
 		}
 	}
 }

@@ -15,7 +15,7 @@ namespace ArcadeJets {
 		public float maxThrust = 3000.0f;
 
 		[Tooltip("How quickly the jet can accelerate and decelerate.")]
-		public float acceleration = 10.0f;
+		public float acceleration = 100.0f;
 
 		[Tooltip("How quickly the jet will brake when the throttle goes below neutral.")]
 		public float brakeDrag = 5.0f;

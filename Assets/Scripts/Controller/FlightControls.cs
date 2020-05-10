@@ -44,7 +44,7 @@ public class @FlightControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""Camera"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Value"",
                     ""id"": ""11f82adc-6415-40b4-9134-e09a873c6081"",
                     ""expectedControlType"": ""Stick"",
                     ""processors"": """",
