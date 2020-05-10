@@ -804,7 +804,7 @@ MonoBehaviour:
   beatMarkerPrefab: {fileID: 1329266132551849632, guid: 7205e627e1f08244e8537ee6f058fd63,
     type: 3}
   delay: 2.2
-  offset: 0.01
+  offset: 0.015
 --- !u!82 &1619283841
 AudioSource:
   m_ObjectHideFlags: 0
@@ -815,7 +815,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 72a5f38cba537114789f98a8c778c80d, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 27daf6d66eb4f0845abeb3d40797b292, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -925,7 +925,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 72a5f38cba537114789f98a8c778c80d, type: 3}
+  m_audioClip: {fileID: 8300000, guid: af3f8cdb1ed0d3f4cb4139aeb228162f, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
