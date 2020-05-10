@@ -30,7 +30,7 @@ public class Shot : MonoBehaviour {
 	private void Update() {
 		if (Vector3.Distance(transform.position, startPos) > maxDistance) {
 //			Destroy(this);
-			Debug.Log("ni");
+Debug.Log("sh");
 		}
 	}
 }
