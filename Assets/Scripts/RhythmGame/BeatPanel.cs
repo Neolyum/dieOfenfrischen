@@ -13,11 +13,13 @@ public class BeatPanel : MonoBehaviour {
     public int hitPoints;
     public int missPoints;
 
+    private bool firstHit = false;
     public GameObject hitsUI;
     public GameObject missesUI;
     private EnergyUI energyUI;
-    private int hits = 0;
-    private int misses = 0;
+    private int hitCount = 0;
+    private float hits = 0;
+    private float misses = 0;
 
     private Vector2 panelSize;
     private Vector2 panelSizeLarge;
@@ -28,15 +30,22 @@ public class BeatPanel : MonoBehaviour {
         
         panelSize = gameObject.GetComponent<RectTransform>().rect.size;
         panelSizeLarge = new Vector2(panelSize.x * largePanelScale, panelSize.y * largePanelScale);
+        
+        hitsUI.GetComponent<TextMeshProUGUI>().text = "Hits: " + 0 + "%";
+        missesUI.GetComponent<TextMeshProUGUI>().text = "Misses: " + 0 + "%";
     }
 
     void Update()
     {
-        hitsUI.GetComponent<TextMeshProUGUI>().text = "Hits: " + hits;
-        missesUI.GetComponent<TextMeshProUGUI>().text = "Misses: " + misses;
+        if (firstHit) {
+            hitsUI.GetComponent<TextMeshProUGUI>().text = "Hits: " + Mathf.Round(hits/hitCount*100) + "%";
+            missesUI.GetComponent<TextMeshProUGUI>().text = "Misses: " + Mathf.Round(misses/hitCount*100) + "%";
+        }
     }
 
     public void OnBeatHitDown() {
+        firstHit = true;
+        hitCount++;
         gameObject.GetComponent<RectTransform>().sizeDelta = panelSizeLarge;
         if (!currentMarker) {
             gameObject.GetComponent<Image>().color = Color.red;
@@ -48,8 +57,7 @@ public class BeatPanel : MonoBehaviour {
             }
             misses++;
         }
-        else if (currentMarker.transform.position.x <= transform.position.x + greenOffset ||
-                 currentMarker.transform.position.x >= transform.position.x - greenOffset) {
+        else {
             gameObject.GetComponent<Image>().color = Color.green;
             if (energyUI.currentEnergy <= energyUI.maxEnergy - hitPoints) {
                 energyUI.currentEnergy+= hitPoints;
@@ -58,10 +66,6 @@ public class BeatPanel : MonoBehaviour {
                 energyUI.currentEnergy = 500;
             }
             hits++;
-        }
-        else {
-            Debug.Log("Yellow");
-            gameObject.GetComponent<Image>().color = Color.yellow;
         }
     }
 

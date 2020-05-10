@@ -16,6 +16,5 @@ public class EnergyUI : MonoBehaviour {
     void Update()
     {
         textMesh.text = "Energy: " + currentEnergy;
-        Debug.Log(currentEnergy);
     }
 }
