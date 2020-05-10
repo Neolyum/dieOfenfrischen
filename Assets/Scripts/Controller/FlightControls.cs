@@ -44,7 +44,7 @@ public class @FlightControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""Camera"",
-                    ""type"": ""Value"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""11f82adc-6415-40b4-9134-e09a873c6081"",
                     ""expectedControlType"": ""Stick"",
                     ""processors"": """",
@@ -177,7 +177,7 @@ public class @FlightControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""5ecf6c74-158c-432f-88c4-1180fca6ec8e"",
+                    ""id"": ""caee9054-e85d-4d71-9700-b74e7db771e7"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -199,10 +199,10 @@ public class @FlightControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""b686c511-caf2-4740-b50b-e13748780da1"",
+                    ""id"": ""734569c1-d094-4a99-a8f1-757049954217"",
                     ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""AxisDeadzone"",
                     ""groups"": ""KM"",
                     ""action"": ""Aim"",
                     ""isComposite"": false,
