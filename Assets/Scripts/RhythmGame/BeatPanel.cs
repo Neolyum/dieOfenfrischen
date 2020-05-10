@@ -15,6 +15,7 @@ public class BeatPanel : MonoBehaviour {
 
     public GameObject hitsUI;
     public GameObject missesUI;
+    private EnergyUI energyUI;
     private int hits = 0;
     private int misses = 0;
 
@@ -23,6 +24,8 @@ public class BeatPanel : MonoBehaviour {
 
 
     private void Awake() {
+        energyUI = GameObject.Find("EnergyUI").GetComponent<EnergyUI>();
+        
         panelSize = gameObject.GetComponent<RectTransform>().rect.size;
         panelSizeLarge = new Vector2(panelSize.x * largePanelScale, panelSize.y * largePanelScale);
     }
@@ -37,13 +40,23 @@ public class BeatPanel : MonoBehaviour {
         gameObject.GetComponent<RectTransform>().sizeDelta = panelSizeLarge;
         if (!currentMarker) {
             gameObject.GetComponent<Image>().color = Color.red;
-            if(EnergyComponent.currentEnergy - missPoints >= 0)EnergyComponent.currentEnergy -= missPoints;
+            if (energyUI.currentEnergy - missPoints >= 0) {
+                energyUI.currentEnergy -= missPoints;
+            }
+            else {
+                energyUI.currentEnergy = 0;
+            }
             misses++;
         }
         else if (currentMarker.transform.position.x <= transform.position.x + greenOffset ||
                  currentMarker.transform.position.x >= transform.position.x - greenOffset) {
             gameObject.GetComponent<Image>().color = Color.green;
-            if(EnergyComponent.currentEnergy <= EnergyComponent.maxEnergy - hitPoints) EnergyComponent.currentEnergy += hitPoints;
+            if (energyUI.currentEnergy <= energyUI.maxEnergy - hitPoints) {
+                energyUI.currentEnergy+= hitPoints;
+            }
+            else {
+                energyUI.currentEnergy = 500;
+            }
             hits++;
         }
         else {

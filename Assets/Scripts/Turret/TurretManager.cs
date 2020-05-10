@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class TurretManager : MonoBehaviour {
@@ -13,6 +14,8 @@ public class TurretManager : MonoBehaviour {
 	public float sensitivity = 100f;
 	private Vector2 aim;
 
+	public int shotEnergy;
+	public EnergyUI energyUI;
 
 	public BeatPanel bp;
 	public float weaponDistance = 100f;
@@ -21,6 +24,8 @@ public class TurretManager : MonoBehaviour {
 	private List<Turret> turrets;
 
 	void Awake() {
+		energyUI = GameObject.Find("EnergyUI").GetComponent<EnergyUI>();
+		
 		turrets = new List<Turret>();
 		foreach (Transform child in turretParent) {
 			Turret t = child.gameObject.AddComponent(typeof(Turret)) as Turret;
@@ -48,11 +53,20 @@ public class TurretManager : MonoBehaviour {
 
 
 	private void Shoot() {
-		Vector3 dir = lookAt.position - transform.position;
+		if (energyUI.currentEnergy >= shotEnergy) {
+			Vector3 dir = lookAt.position - transform.position;
 
-		foreach (Turret t in turrets) {
-			Debug.DrawLine(lookAt.position, t.transform.position, Color.yellow);
-			t.Shoot(dir.normalized, weaponDistance);
+			foreach (Turret t in turrets) {
+				Debug.DrawLine(lookAt.position, t.transform.position, Color.yellow);
+				t.Shoot(dir.normalized, weaponDistance);
+			}
+
+			if(energyUI.currentEnergy - shotEnergy > 0) {
+				energyUI.currentEnergy -= shotEnergy;
+			}
+			else {
+				energyUI.currentEnergy = 0;
+			}
 		}
 	}
 
