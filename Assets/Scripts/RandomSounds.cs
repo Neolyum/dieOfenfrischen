@@ -13,15 +13,16 @@ public class RandomSounds : MonoBehaviour
     {
         source = GameObject.Find("Leviathan").GetComponent<AudioSource>();
         StartCoroutine("playSounds");
-}
+    }
 
     IEnumerator playSounds()
     {
-        while (running) {
+        while (running && !GameObject.Find("Leviathan").GetComponent<Leviathan>().dead) {
             yield return new WaitForSeconds(Random.Range(10, 16));
             clip = clips[Random.Range(0, clips.Length)];
             source.PlayOneShot(clip);
         }
+        Debug.Log("L dead, exit RandomSoiunds");
     }
 
 }

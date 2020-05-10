@@ -345,6 +345,7 @@ GameObject:
   - component: {fileID: 1784906157}
   - component: {fileID: 1784906156}
   - component: {fileID: 1784906155}
+  - component: {fileID: 1784906161}
   m_Layer: 0
   m_Name: Leviathan
   m_TagString: Untagged
@@ -370,7 +371,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 709707929f248424b8764a647284416a, type: 3}
   - {fileID: 8300000, guid: 8f95cfeedbab6294db6ba30de1b6efbd, type: 3}
   - {fileID: 8300000, guid: b493c7b387c83a14a97d2073cdb4a48e, type: 3}
-  - {fileID: 8300000, guid: 1e14ab709f0828a4d8ae638ba4067735, type: 3}
   - {fileID: 8300000, guid: 6249282da0b87ea4b9f843be66a450af, type: 3}
   - {fileID: 8300000, guid: 9fea327358ee72445a77c2f7cb0f82b6, type: 3}
 --- !u!82 &1784906156
@@ -543,6 +543,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1784906161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1784906154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa333e8d10440a04bb52970c427d7124, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dieSound: {fileID: 8300000, guid: 1e14ab709f0828a4d8ae638ba4067735, type: 3}
 --- !u!1 &2140988916
 GameObject:
   m_ObjectHideFlags: 0
