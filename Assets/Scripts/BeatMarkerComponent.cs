@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BeatMarkerComponent : MonoBehaviour {
     
-    public float destroyDelay = 3f;
+    public float destroyDelay;
     public Canvas UI;
     
 

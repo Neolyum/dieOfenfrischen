@@ -13,7 +13,8 @@ public class AmplitudeAnalyzer : MonoBehaviour
 
     public GameObject BeatMarkers;
     public GameObject beatMarkerPrefab;
-    public float delay = 2f;
+    public float delay;
+    public float offset;
 
     private float currentUpdateTime = 0f;
  
@@ -25,14 +26,13 @@ public class AmplitudeAnalyzer : MonoBehaviour
     private float sum;
     private float average;
     private float counter;
-    private float offset = 0.002f;
     private bool beatHigh = false;
         
     // Use this for initialization
     void Awake () {
         
         audioSourcePreload.Play();
-        audioSource.Play();
+        audioSource.PlayDelayed(delay);
 
         highest = float.MinValue;
         lowest = float.MaxValue;
@@ -55,7 +55,7 @@ public class AmplitudeAnalyzer : MonoBehaviour
         currentUpdateTime += Time.deltaTime;
         if (currentUpdateTime >= updateStep) {
             currentUpdateTime = 0f;
-            audioSourcePreload.clip.GetData(clipSampleData, audioSource.timeSamples); //I read 1024 samples, which is about 80 ms on a 44khz stereo clip, beginning at the current sample position of the clip.
+            audioSourcePreload.clip.GetData(clipSampleData, audioSourcePreload.timeSamples); //I read 1024 samples, which is about 80 ms on a 44khz stereo clip, beginning at the current sample position of the clip.
             clipLoudness = 0f;
             foreach (var sample in clipSampleData) {
                 clipLoudness += Mathf.Abs(sample);
@@ -67,11 +67,7 @@ public class AmplitudeAnalyzer : MonoBehaviour
             sum += clipLoudness;
             average = sum / counter;
             
-            Debug.Log("Highest: " + highest);
-            Debug.Log("Lowest: " + lowest);
-            Debug.Log("Average: " + average);
-
-            Debug.Log("Clip loudness: " + clipLoudness);
+            // Debug.Log("Average: " + average);
 
             if (clipLoudness >= average + offset && beatHigh == false) {
 
