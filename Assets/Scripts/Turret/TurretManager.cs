@@ -13,10 +13,9 @@ public class TurretManager : MonoBehaviour {
 
 
 	public Transform lookAt;
-	public float sensitivity = 100f;
 	private Vector2 aim;
 
-	public int shotEnergy;
+	public float shotEnergy;
 	public EnergyUI energyUI;
 
 	public BeatPanel bp;
@@ -26,10 +25,11 @@ public class TurretManager : MonoBehaviour {
 
 	public Vector3 aimDir;
 
+	private bool _shooting;
 
 	void Awake() {
 		energyUI = GameObject.Find("EnergyUI").GetComponent<EnergyUI>();
-		
+
 		source = gameObject.AddComponent<AudioSource>();
 		LineRenderer line = GetComponent<LineRenderer>();
 		turrets = new List<Turret>();
@@ -45,18 +45,18 @@ public class TurretManager : MonoBehaviour {
 
 		fc = new FlightControls();
 		fc.Turret.Aim.performed += ctx => aim = ctx.ReadValue<Vector2>();
-		fc.Turret.Shoot.started += _ => Shoot();
+//		fc.Turret.Shoot.started += _ => Shoot();
 		fc.Turret.Beat.started += _ => bp.OnBeatHitDown();
-		fc.Turret.Beat.canceled+= _ => bp.OnBeatHitUp();
-		fc.Turret.Shoot.started += _ => ToggleShooting(true);
+		fc.Turret.Beat.canceled += _ => bp.OnBeatHitUp();
+		fc.Turret.Shoot.started += _ => StartCoroutine(Shoot());
 		fc.Turret.Shoot.canceled += _ => ToggleShooting(false);
 //		fc.Turret.Aim.canceled += ctx => aim = Vector2.zero;
 	}
 
 
-
 	void ToggleShooting(bool value) {
 		if (value) {
+			_shooting = true;
 			source.clip = kathode;
 			source.Play();
 		}
@@ -69,9 +69,25 @@ public class TurretManager : MonoBehaviour {
 		}
 	}
 
+
+	private bool EnergyPredicate() {
+		energyUI.currentEnergy = Mathf.Clamp(energyUI.currentEnergy - shotEnergy * 0.05f, 0, 500f);
+
+		return energyUI.currentEnergy == 0 || !_shooting;
+	}
+
+	private IEnumerator Shoot() {
+		if (energyUI.currentEnergy >= 10) {
+			ToggleShooting(true);
+			yield return new WaitUntil(EnergyPredicate);
+		}
+
+		ToggleShooting(false);
+	}
+
 	private void Aim() {
-		float x = aim.x * sensitivity * Time.deltaTime;
-		float y = Mathf.Clamp(-aim.y * sensitivity * Time.deltaTime, -90f, 90f);
+		float x = aim.x * Time.deltaTime;
+		float y = Mathf.Clamp(-aim.y * Time.deltaTime, -90f, 90f);
 
 		transform.RotateAround(transform.position, transform.up, x);
 		transform.RotateAround(transform.position, transform.right, y);
@@ -81,25 +97,6 @@ public class TurretManager : MonoBehaviour {
 
 		cam.transform.LookAt(lookAt);
 		aimDir = lookAt.position - transform.position;
-	}
-
-
-	private void Shoot() {
-		if (energyUI.currentEnergy >= shotEnergy) {
-			Vector3 dir = lookAt.position - transform.position;
-
-			foreach (Turret t in turrets) {
-				Debug.DrawLine(lookAt.position, t.transform.position, Color.yellow);
-				t.Shoot(dir.normalized, weaponDistance);
-			}
-
-			if(energyUI.currentEnergy - shotEnergy > 0) {
-				energyUI.currentEnergy -= shotEnergy;
-			}
-			else {
-				energyUI.currentEnergy = 0;
-			}
-		}
 	}
 
 	private void OnEnable() {

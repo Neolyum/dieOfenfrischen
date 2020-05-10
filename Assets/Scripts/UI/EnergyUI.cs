@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class EnergyUI : MonoBehaviour {
     private TextMeshProUGUI textMesh;
-    public int currentEnergy = 200;
-    public int maxEnergy = 500;
+    public float currentEnergy = 200;
+    public float maxEnergy = 500;
     
     private void Awake() {
         textMesh = transform.GetComponent<TextMeshProUGUI>();
@@ -16,6 +16,5 @@ public class EnergyUI : MonoBehaviour {
     void Update()
     {
         textMesh.text = "Energy: " + currentEnergy;
-        Debug.Log(currentEnergy);
     }
 }
