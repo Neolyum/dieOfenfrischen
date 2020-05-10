@@ -137,7 +137,7 @@
                     "name": "Aim",
                     "type": "Value",
                     "id": "0e809dc2-c174-4ab8-ac3d-8a97dab636b9",
-                    "expectedControlType": "Stick",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": ""
                 },
@@ -164,11 +164,33 @@
                 },
                 {
                     "name": "",
+                    "id": "5ecf6c74-158c-432f-88c4-1180fca6ec8e",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KM",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "0d3d4130-844d-428e-8e79-f51e72abf9ec",
                     "path": "<Gamepad>/leftStick",
                     "interactions": "",
                     "processors": "StickDeadzone",
                     "groups": "Gamepad",
+                    "action": "Aim",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b686c511-caf2-4740-b50b-e13748780da1",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KM",
                     "action": "Aim",
                     "isComposite": false,
                     "isPartOfComposite": false

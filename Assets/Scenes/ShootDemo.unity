@@ -151,6 +151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 1273896530}
+  kathode: {fileID: 8300000, guid: 7cb01f3fb781a3140be6b9d8893db6d9, type: 3}
   lookAt: {fileID: 358592848}
   sensitivity: 100
   weaponDistance: 100
