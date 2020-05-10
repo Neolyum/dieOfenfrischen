@@ -11,7 +11,7 @@ public class RandomSounds : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        source = GameObject.Find("Leviathan").GetComponent<AudioSource>();
+        source = GameObject.Find("LeviathanSound").GetComponent<AudioSource>();
         StartCoroutine("playSounds");
     }
 

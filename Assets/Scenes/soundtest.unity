@@ -379,7 +379,7 @@ GameObject:
   - component: {fileID: 1784906155}
   - component: {fileID: 1784906161}
   m_Layer: 0
-  m_Name: Leviathan
+  m_Name: LeviathanSound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
