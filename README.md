@@ -54,3 +54,23 @@ The main goal at 3m5.GameJams is to pick some of the random topics and to be cre
 | Zykloidenbogen | Cycloid arch | yes |
 | Intervallbreite | interval width | yes |
 | Kapitulationsurkunde | Surrender | |
+
+# Screenshots
+
+## Ingame
+
+| Main Scene | Players flying towards the leviathan |
+| --- | --- | 
+| ![Screenshot](./resources/ingame_1.png) | ![Screenshot](./resources/ingame_2.png) |
+
+## Early Concepts of Airships
+
+| Airship No. 1 | Airship No. 2 |
+| --- | --- | 
+| ![Screenshot](./resources/airship_1_early_version.png) | ![Screenshot](./resources/airship_2_early_version.png) |
+
+## Early Concepts of Environment and Main Characters
+
+| Leviathan | Procedurally generated island |
+| --- | --- | 
+| ![Screenshot](./resources/leviathan_early_version.JPG) | ![Screenshot](./resources/procedural_generated_island.png) |
